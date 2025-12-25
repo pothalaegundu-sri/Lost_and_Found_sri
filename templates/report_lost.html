@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Lost Item | Lost & Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-body">
+    
+    <div class="navbar-wrapper">
+        <div class="navbar">
+            <h2><i class="fas fa-search-location"></i> Lost & Found</h2>
+            <nav>
+                <a href="/dashboard" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+                <a href="/logout" class="nav-btn">Logout <i class="fas fa-sign-out-alt"></i></a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-3"></div>
+
+    <div class="login-container">
+        <div class="glass-login-card wide-card animate-up">
+            <h1 class="animate-fade-in delay-1" style="color: #d63031;">Lost Something?</h1>
+            <p class="subtitle animate-fade-in delay-2">Don't worry, we'll help you find it.</p>
+            
+            <form action="/report_lost" method="POST" class="login-form" enctype="multipart/form-data">
+                
+                <div class="form-grid">
+                    <div class="input-group animate-slide-in delay-3">
+                        <i class="fas fa-box-open input-icon"></i>
+                        <input type="text" name="title" placeholder="What did you lose?" required>
+                    </div>
+                    
+                    <div class="input-group animate-slide-in delay-3">
+                        <i class="fas fa-map-pin input-icon"></i>
+                        <input type="text" name="location" placeholder="Where did you last see it?" required>
+                    </div>
+
+                    <div class="input-group animate-slide-in delay-4">
+                        <i class="fas fa-tags input-icon"></i>
+                        <select name="category" required style="width: 100%; background: transparent; border: none; outline: none; padding-left: 10px; color: #555;">
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Wallet/ID">Wallet & IDs</option>
+                            <option value="Keys">Keys</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group animate-slide-in delay-4">
+                        <i class="fas fa-image input-icon"></i>
+                        <input type="file" name="image" accept="image/*" style="padding-top: 10px;">
+                    </div>
+                </div>
+
+                <div class="input-group animate-slide-in delay-6 full-width" style="margin-top: 15px;">
+                    <textarea name="description" rows="3" placeholder="Description (Unique marks, scratches, stickers...)" required style="width: 100%; background: transparent; border: none; outline: none; padding: 10px;"></textarea>
+                </div>
+
+                <button type="submit" class="btn animate-pop-in delay-7" style="margin-top: 20px; background: #d63031;">
+                    Report Lost Item <i class="fas fa-bullhorn"></i>
+                </button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

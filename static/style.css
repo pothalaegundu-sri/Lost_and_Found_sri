@@ -1,0 +1,673 @@
+/* =========================================
+   1. PREMIUM VARIABLES & RESET
+   ========================================= */
+:root {
+    /* Brand Colors */
+    --primary: #3b82f6;       /* Vibrant Blue */
+    --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    --secondary: #64748b;     /* Slate */
+    
+    /* Backgrounds */
+    --bg-color: #f8fafc;
+    --bg-gradient: radial-gradient(circle at top right, #e0f2fe, #f1f5f9 40%);
+    --surface: #ffffff;
+    
+    /* Text */
+    --text-main: #0f172a;     /* Deep Navy */
+    --text-muted: #64748b;    /* Soft Slate */
+    
+    /* Status Gradients */
+    --lost-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    --found-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    
+    /* Modern UI Elements */
+    --shadow-soft: 0 4px 6px -1px rgba(148, 163, 184, 0.1), 0 2px 4px -1px rgba(148, 163, 184, 0.06);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --glass-nav: rgba(255, 255, 255, 0.8);
+    --radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-color);
+    background-image: var(--bg-gradient);
+    color: var(--text-main);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* =========================================
+   2. GLASS NAVBAR (Top Nav - Dashboard)
+   ========================================= */
+.top-nav {
+    background: var(--glass-nav);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    padding: 1rem 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.btn-logout {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-logout:hover {
+    background: white;
+    color: #ef4444;
+    box-shadow: var(--shadow-soft);
+}
+
+/* =========================================
+   3. MAIN LAYOUT & HERO
+   ========================================= */
+.main-wrapper {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hero Banner Style */
+.hero-banner {
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 24px;
+    padding: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.4);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 24px;
+}
+
+.stats-row {
+    display: flex;
+    gap: 12px;
+}
+
+.stat-pill {
+    background: rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-art {
+    opacity: 0.2;
+    transform: rotate(15deg) scale(1.4);
+    margin-right: 20px;
+}
+
+/* =========================================
+   4. ACTION CARDS (The Buttons)
+   ========================================= */
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 50px;
+}
+
+.action-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid transparent;
+}
+
+.icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    transition: transform 0.3s ease;
+}
+
+.text-group h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+.text-group p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.arrow-icon {
+    margin-left: auto;
+    color: #cbd5e1;
+    transition: transform 0.3s;
+}
+
+/* Specific Styles for Lost vs Found */
+.lost-card .icon-circle { background: #fee2e2; color: #ef4444; }
+.found-card .icon-circle { background: #d1fae5; color: #10b981; }
+
+/* HOVER EFFECTS */
+.lost-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.2);
+    border-color: #fee2e2;
+}
+.found-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2);
+    border-color: #d1fae5;
+}
+.action-card:hover .arrow-icon { transform: translateX(5px); color: var(--text-main); }
+.action-card:hover .icon-circle { transform: scale(1.1); }
+
+
+/* =========================================
+   5. NOTIFICATIONS
+   ========================================= */
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notif-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 15px;
+    border-left: 4px solid #f59e0b;
+    box-shadow: var(--shadow-soft);
+}
+
+.notif-icon {
+    background: #fffbeb;
+    color: #f59e0b;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   6. ITEM CARDS GRID
+   ========================================= */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.item-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #f1f5f9;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-image {
+    height: 180px;
+    background: #f8fafc;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    font-size: 3rem;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.item-card:hover .card-image img { transform: scale(1.05); }
+
+.status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.status-badge.lost { background: white; color: #ef4444; }
+.status-badge.found { background: white; color: #10b981; }
+
+.card-content { padding: 24px; }
+
+.card-content h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: var(--text-main);
+}
+
+.desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
+.meta { font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px; display: flex; gap: 8px; align-items: center; }
+
+.btn-resolve {
+    width: 100%;
+    padding: 12px;
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-resolve:hover {
+    background: #22c55e;
+    color: white;
+    border-color: #22c55e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+}
+
+/* =========================================
+   7. ANIMATIONS & UTILS (Global)
+   ========================================= */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.animate-up { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    background: white;
+    border-radius: 20px;
+    border: 2px dashed #cbd5e1;
+    color: var(--text-muted);
+}
+
+/* Global Form Styles (Dashboard only) */
+input, textarea, select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #f8fafc;
+    transition: all 0.2s;
+    margin-bottom: 20px;
+}
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+.btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    background: var(--primary-gradient);
+    color: white;
+    transition: transform 0.2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4); }
+
+
+/* =========================================
+   8. NEW PREMIUM REPORT PAGES (Lost & Found)
+   ========================================= */
+/* Specific Styles for the "glass-login-card" HTML structure */
+
+/* 8.1 Floating Navbar */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 100;
+    pointer-events: none; /* Let clicks pass through if clicking sides */
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.5);
+    pointer-events: all;
+}
+
+.navbar h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar nav { display: flex; gap: 15px; }
+
+.nav-btn {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 20px;
+    border-radius: 30px;
+    transition: all 0.3s;
+}
+
+.nav-btn:hover {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* 8.2 Layout & Background Shapes */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px 60px; /* Top padding ensures navbar doesn't cover content */
+    position: relative;
+    z-index: 10;
+}
+
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.6;
+    animation: floatShape 20s infinite alternate;
+}
+
+/* Blue Shape (Top Left) */
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    background: #e0f2fe;
+    top: -100px;
+    left: -100px;
+}
+
+/* Green Shape (Bottom Right - Found) */
+.shape-2 {
+    width: 500px;
+    height: 500px;
+    background: rgba(16, 185, 129, 0.15);
+    bottom: -150px;
+    right: -100px;
+}
+
+/* Red Shape (Bottom Right - Lost) */
+.shape-3 {
+    width: 500px;
+    height: 500px;
+    background: rgba(239, 68, 68, 0.15);
+    bottom: -150px;
+    right: -100px;
+}
+
+/* 8.3 The Glass Card */
+.glass-login-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 50px;
+    border-radius: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.wide-card {
+    max-width: 850px; /* Wider for 2-column layout */
+}
+
+/* Headers */
+.glass-login-card h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    letter-spacing: -1px;
+    text-align: center;
+    /* Color is set inline in HTML, but we provide fallback */
+    color: var(--text-main); 
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+}
+
+/* 8.4 Form Grid Layout */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 0px;
+}
+
+@media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; gap: 15px; }
+    .glass-login-card { padding: 30px 20px; }
+}
+
+/* 8.5 Specific Input Styling with Icons */
+.input-group {
+    position: relative;
+    margin-bottom: 20px; /* Moves margin to wrapper instead of input */
+}
+
+/* Icon Position */
+.input-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1.1rem;
+    z-index: 5;
+    transition: color 0.3s;
+}
+
+/* Reset generic margins for inputs inside this specific form */
+.login-form input,
+.login-form select,
+.login-form textarea {
+    margin-bottom: 0 !important; 
+    width: 100% !important;
+    padding: 16px 20px 16px 50px !important; /* Space for icon */
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 16px !important;
+    font-size: 0.95rem;
+    color: var(--text-main) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    box-shadow: none;
+}
+
+/* Focus States */
+.login-form input:focus,
+.login-form select:focus,
+.login-form textarea:focus {
+    background: white !important;
+    border-color: var(--primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Highlight icon on focus */
+.login-form input:focus ~ .input-icon,
+.login-form select:focus ~ .input-icon {
+    color: var(--primary);
+}
+
+/* Textarea specific adjustment */
+.login-form textarea {
+    padding: 16px !important; /* No icon in textarea usually */
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Full Width Utility */
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* 8.6 Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floatShape {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(20px, 40px); }
+}
+
+/* Utility classes used in HTML */
+.animate-fade-in { 
+    opacity: 0; 
+    animation: fadeInUp 0.8s ease forwards; 
+}
+
+.animate-slide-in { 
+    opacity: 0; 
+    animation: slideInRight 0.6s ease forwards; 
+}
+
+.animate-pop-in { 
+    opacity: 0; 
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; }

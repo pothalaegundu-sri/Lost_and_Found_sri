@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Lost & Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="logo">
+            <i class="fas fa-search-location"></i> Lost & Found
+        </div>
+        <div class="user-menu">
+            <span>Welcome, <strong>{{ current_user.name }}</strong></span>
+            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        
+        <div class="hero-banner animate-up">
+            <div class="hero-content">
+                <h1>Hello, {{ current_user.name }}! 👋</h1>
+                <p>Welcome to your personal recovery center. What would you like to do today?</p>
+                
+                <div class="stats-row">
+                    <div class="stat-pill">
+                        <i class="fas fa-layer-group"></i> {{ items|length }} Items Reported
+                    </div>
+                    <div class="stat-pill">
+                        <i class="fas fa-bell"></i> {{ notifications|length }} Alerts
+                    </div>
+                </div>
+            </div>
+            <div class="hero-art">
+                <i class="fas fa-rocket fa-5x"></i>
+            </div>
+        </div>
+
+        <div class="action-grid animate-up delay-1">
+            <a href="/report_lost" class="action-card lost-card">
+                <div class="icon-circle">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="text-group">
+                    <h3>I Lost Something</h3>
+                    <p>Report a missing item and let AI find it.</p>
+                </div>
+                <i class="fas fa-arrow-right arrow-icon"></i>
+            </a>
+
+            <a href="/report_found" class="action-card found-card">
+                <div class="icon-circle">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <div class="text-group">
+                    <h3>I Found Something</h3>
+                    <p>Help return an item to its owner.</p>
+                </div>
+                <i class="fas fa-arrow-right arrow-icon"></i>
+            </a>
+        </div>
+
+        {% if notifications %}
+        <div class="section-header animate-up delay-2">
+            <h2><i class="fas fa-bell" style="color: #f59e0b;"></i> New AI Alerts</h2>
+        </div>
+        <div class="notification-list animate-up delay-2">
+            {% for notif in notifications %}
+            <div class="notif-card">
+                <div class="notif-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="notif-content">
+                    <strong>Match Found</strong>
+                    <p>{{ notif.message }}</p>
+                    <small>{{ notif.timestamp.strftime('%Y-%m-%d at %I:%M %p') }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="section-header animate-up delay-3">
+            <h2>Your Reported Items</h2>
+        </div>
+
+        {% if items %}
+            <div class="items-grid animate-up delay-3">
+                {% for item in items %}
+                <div class="item-card">
+                    <div class="card-image">
+                        {% if item.image_file %}
+                            <img src="{{ url_for('static', filename='uploads/' + item.image_file) }}" alt="{{ item.title }}">
+                        {% else %}
+                            <div class="placeholder-img"><i class="fas fa-box"></i></div>
+                        {% endif %}
+                        <div class="status-badge {{ item.type }}">
+                            {{ item.type }}
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ item.title }}</h3>
+                        <p class="desc">{{ item.description }}</p>
+                        <div class="meta">
+                            <i class="fas fa-map-marker-alt"></i> {{ item.location }}
+                        </div>
+                        
+                        <form action="{{ url_for('resolve_item', item_id=item.id) }}" method="POST">
+                            <button type="submit" class="btn-resolve" onclick="return confirm('Is this item resolved?')">
+                                <i class="fas fa-check"></i> Mark Resolved
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state animate-up delay-3">
+                <img src="https://cdni.iconscout.com/illustration/premium/thumb/folder-is-empty-4064360-3363921.png" alt="Empty" style="width: 150px; opacity: 0.8;">
+                <h3>No items reported yet</h3>
+                <p>Use the buttons above to report your first item.</p>
+            </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

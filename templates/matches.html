@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Found Matches! | Lost & Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="navbar-wrapper">
+        <div class="navbar">
+            <h2><i class="fas fa-check-circle"></i> Match Results</h2>
+            <nav>
+                <a href="/dashboard" class="nav-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="wide-panel animate-up">
+            
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1>Potential Matches Found!</h1>
+                <p class="subtitle">
+                    We found items that look similar to the 
+                    <strong style="color: var(--primary);">{{ current_item.title }}</strong> 
+                    you just reported.
+                </p>
+            </div>
+
+            <div class="items-grid">
+                {% for match in matches %}
+                <div class="item-card" style="border: 2px solid #e2e8f0;">
+                    <div class="card-image">
+                        {% if match.image_file %}
+                            <img src="{{ url_for('static', filename='uploads/' + match.image_file) }}" alt="{{ match.title }}">
+                        {% else %}
+                            <i class="fas fa-box-open fa-3x"></i>
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <span style="background: #dbeafe; color: #1e40af; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">
+                            <i class="fas fa-star"></i> High Match
+                        </span>
+
+                        <h3 style="margin-top: 10px;">{{ match.title }}</h3>
+                        <p>{{ match.description }}</p>
+                        
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9;">
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">
+                                <i class="fas fa-map-marker-alt"></i> {{ match.location }}
+                            </p>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 5px;">
+                                <i class="fas fa-envelope"></i> Contact: <strong>{{ match.user.email }}</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Not the item you are looking for?</p>
+                <a href="/dashboard" class="btn" style="width: auto; padding: 12px 30px; background: white; color: var(--text-main); border: 2px solid #e2e8f0; box-shadow: none;">
+                    Return to Dashboard
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

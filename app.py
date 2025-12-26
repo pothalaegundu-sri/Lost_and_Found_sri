@@ -296,10 +296,11 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-# 👇 NO SPACES at the start of this line!
+# 👇 This part must be aligned to the LEFT (no spaces at start)
 with app.app_context():
-    # Creates database tables if they don't exist
     db.create_all()
+    print("✅ DATABASE TABLES CREATED SUCCESSFULLY!") 
 
 if __name__ == '__main__':
     app.run(debug=True)
+

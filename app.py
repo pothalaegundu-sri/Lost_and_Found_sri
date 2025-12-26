@@ -100,30 +100,15 @@ def check_for_matches_and_notify_email(new_found_item):
 def send_notification_email(recipient_email, found_item, lost_item_title):
     """Sends an email to the user who lost the item."""
     try:
-        msg = Message('Good News! Potential Match Found',
-                      sender=app.config['MAIL_USERNAME'],
-                      recipients=[recipient_email])
+        # ... (keep the message setup code) ...
         
-        msg.html = f"""
-        <h3>Hi there,</h3>
-        <p>We noticed you reported a lost item: <b>{lost_item_title}</b>.</p>
-        <p>Great news! Someone just reported finding a similar item.</p>
-        <hr>
-        <h4>Found Item Details:</h4>
-        <ul>
-            <li><b>Item:</b> {found_item.title}</li>
-            <li><b>Location Found:</b> {found_item.location}</li>
-            <li><b>Description:</b> {found_item.description}</li>
-        </ul>
-        <p>Please login to your dashboard to view the image and claim it if it's yours.</p>
-        <br>
-        <p>Best,<br>Lost & Found Team</p>
-        """
-        mail.send(msg)
-        print("   📧 EMAIL SENT SUCCESSFULLY!")
+        # 👇 ADD A HASHTAG (#) TO THE START OF THIS LINE:
+        # mail.send(msg) 
+        
+        print("   📧 (Email skipped to save memory on Free Tier)")
+        
     except Exception as e:
         print(f"   ❌ FAILED TO SEND EMAIL: {e}")
-        print("   (Check if your Email Address on line 35 is correct)")
 
 
 # --- ROUTES ---
@@ -303,4 +288,5 @@ with app.app_context():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 

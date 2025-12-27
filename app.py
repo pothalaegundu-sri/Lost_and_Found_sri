@@ -30,8 +30,8 @@ app.config['UPLOAD_FOLDER'] = upload_path
 # --- EMAIL CONFIGURATION ---
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'your-email@gmail.com'  # <--- ENTER YOUR REAL GMAIL ADDRESS HERE
-app.config['MAIL_PASSWORD'] = 'duyu vnlq bqkm kmtc'     # <--- I ADDED YOUR PASSWORD HERE
+app.config['MAIL_USERNAME'] = 'pothalaegundu@gmail.com'  # <--- Updated to your email from logs
+app.config['MAIL_PASSWORD'] = 'duyu vnlq bqkm kmtc'      # <--- Your App Password
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -100,15 +100,33 @@ def check_for_matches_and_notify_email(new_found_item):
 def send_notification_email(recipient_email, found_item, lost_item_title):
     """Sends an email to the user who lost the item."""
     try:
-        # ... (keep the message setup code) ...
+        msg = Message('Good News! Potential Match Found',
+                      sender=app.config['MAIL_USERNAME'],
+                      recipients=[recipient_email])
         
-        # 👇 ADD A HASHTAG (#) TO THE START OF THIS LINE:
+        msg.html = f"""
+        <h3>Hi there,</h3>
+        <p>We noticed you reported a lost item: <b>{lost_item_title}</b>.</p>
+        <p>Great news! Someone just reported finding a similar item.</p>
+        <hr>
+        <h4>Found Item Details:</h4>
+        <ul>
+            <li><b>Item:</b> {found_item.title}</li>
+            <li><b>Location Found:</b> {found_item.location}</li>
+            <li><b>Description:</b> {found_item.description}</li>
+        </ul>
+        <p>Please login to your dashboard to view the image and claim it if it's yours.</p>
+        <br>
+        <p>Best,<br>Lost & Found Team</p>
+        """
+        
+        # 👇 DISABLED TO PREVENT CRASH ON FREE TIER (OUT OF MEMORY)
         # mail.send(msg) 
-        
         print("   📧 (Email skipped to save memory on Free Tier)")
         
     except Exception as e:
         print(f"   ❌ FAILED TO SEND EMAIL: {e}")
+        print("   (Check if your Email Address on line 35 is correct)")
 
 
 # --- ROUTES ---
@@ -281,12 +299,10 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-# 👇 This part must be aligned to the LEFT (no spaces at start)
+# 👇 This part checks DB tables every time app starts
 with app.app_context():
     db.create_all()
     print("✅ DATABASE TABLES CREATED SUCCESSFULLY!") 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
